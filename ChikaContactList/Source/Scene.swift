@@ -23,14 +23,13 @@ public final class Scene: UIViewController {
     var presenceListenerOperator: PresenceListenerOperator!
     
     var contactTableViewController: ContactTableViewController!
-    var contactTableViewControllerFactory: ContactTableViewControllerFactory!
     
     var onSelectContact: ((Contact) -> Void)?
     var onDeselectContact: ((Contact) -> Void)?
     
     public var isSelectionEnabled: Bool = false {
         didSet {
-            guard isViewLoaded, contactTableViewController != nil else {
+            guard isViewLoaded, contactTableViewController != nil, isSelectionEnabled != oldValue else {
                 return
             }
             
@@ -40,18 +39,28 @@ public final class Scene: UIViewController {
     
     var initialSelectedContactIDs: [ID] = []
     
-    public override func viewDidLoad() {
-        super.viewDidLoad()
+    public override func loadView() {
+        super.loadView()
         
-        queryContacts()
-    }
-    
-    public override func viewDidLayoutSubviews() {
         guard contactTableViewController != nil else {
             return
         }
         
-        contactTableViewController.view.frame = containerView.bounds
+        containerView.addSubview(contactTableViewController.view)
+        addChildViewController(contactTableViewController)
+        contactTableViewController.didMove(toParentViewController: self)
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        contactTableViewController?.style = isSelectionEnabled ? .selection : .default
+        contactTableViewController?.isPlaceholderCellShown = true
+        queryContacts()
+    }
+    
+    public override func viewDidLayoutSubviews() {
+        contactTableViewController?.view.frame = containerView.bounds
     }
     
     public func dispose() {
@@ -62,20 +71,42 @@ public final class Scene: UIViewController {
     
     @discardableResult
     public func selectAllContacts() -> Bool {
-        guard contactTableViewController != nil else {
-            return false
-        }
-        
-        return contactTableViewController.selectAll()
+        return contactTableViewController?.selectAll() ?? false
     }
     
     @discardableResult
     public func deselectAllContacts() -> Bool {
-        guard contactTableViewController != nil else {
+        return contactTableViewController?.deselectAll() ?? false
+    }
+    
+    @discardableResult
+    public func selectContact(withIDs contactIDs: [ID]) -> Bool {
+        guard data != nil else {
             return false
         }
         
-        return contactTableViewController.deselectAll()
+        let indexes = data.indexes(withContactIDs: contactIDs)
+        return selectContact(withIndexes: indexes)
+    }
+    
+    @discardableResult
+    public func selectContact(withIndexes indexes: [Int]) -> Bool {
+        return contactTableViewController?.select(indexes: indexes) ?? false
+    }
+    
+    @discardableResult
+    public func deselectContact(withIDs contactIDs: [ID]) -> Bool {
+        guard data != nil else {
+            return false
+        }
+        
+        let indexes = data.indexes(withContactIDs: contactIDs)
+        return deselectContact(withIndexes: indexes)
+    }
+    
+    @discardableResult
+    public func deselectContact(withIndexes indexes: [Int]) -> Bool {
+        return contactTableViewController?.deselect(indexes: indexes) ?? false
     }
     
     @discardableResult
@@ -88,80 +119,19 @@ public final class Scene: UIViewController {
     }
     
     private func completion(_ result: Result<[Contact]>) {
-        guard data != nil else {
-            return
-        }
-        
         switch result {
         case .ok(let contacts):
             stopPresenceListener()
-            data.refreshItems(withNewList: contacts)
-            
-            if !attachContactTableViewController() {
-                contactTableViewController.tableView.reloadData()
-            }
-            
+            data?.refreshItems(withNewList: contacts)
             startPresenceListener()
             
         case .err:
             break
         }
-    }
-    
-    @discardableResult
-    private func attachContactTableViewController() -> Bool {
-        guard contactTableViewController == nil else {
-            return false
-        }
         
-        contactTableViewController = contactTableViewControllerFactory.withItemCount({ [weak self] in
-            return self?.data.itemCount ?? 0
-            
-        }).withItemAt({ [weak self] index -> ContactTableViewCellItem in
-            guard let item = self?.data.itemAt(index) else {
-                return ContactTableViewCellItem()
-            }
-            
-            return item.toCellItem()
-            
-        }).withStyle({ [weak self] in
-            guard let this = self, this.isSelectionEnabled else {
-                return .default
-            }
-            
-            return  .selection
-            
-        }).onSelectItemAt({ [weak self] index in
-            guard let data = self?.data, let contact = data.itemAt(index)?.contact else {
-                return
-            }
-            
-            self?.onSelectContact?(contact)
-            
-        }).onDeselectItemAt({ [weak self] index in
-            guard let data = self?.data, let contact = data.itemAt(index)?.contact else {
-                return
-            }
-            
-            self?.onDeselectContact?(contact)
-            
-        }).withSelectedIndexes({ [weak self] in
-            guard let this = self, let data = this.data else {
-                return []
-            }
-            
-            return data.indexes(withContactIDs: this.initialSelectedContactIDs)
-            
-        }).build()
-        
-        containerView.addSubview(contactTableViewController.view)
-        addChildViewController(contactTableViewController)
-        contactTableViewController.didMove(toParentViewController: self)
-        
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
-        
-        return true
+        let indexes = data?.indexes(withContactIDs: initialSelectedContactIDs) ?? []
+        contactTableViewController?.select(indexes: indexes)
+        contactTableViewController?.isPlaceholderCellShown = false
     }
     
     @discardableResult
@@ -193,13 +163,9 @@ public final class Scene: UIViewController {
     }
     
     private func onChangedPresence(_ result: Result<Presence>) {
-        guard data != nil else {
-            return
-        }
-        
         switch result {
         case .ok(let presence):
-            let index = data.updatePresenceStatus(with: presence)
+            let index = data?.updatePresenceStatus(with: presence)
             updateCell(at: index)
         
         case .err:
@@ -208,15 +174,15 @@ public final class Scene: UIViewController {
     }
     
     private func updateCell(at index: Int?) {
-        guard contactTableViewController != nil, let row = index else {
+        guard let row = index else {
             return
         }
         
         let rows = [IndexPath(row: row, section: 0)]
         
-        contactTableViewController.tableView.beginUpdates()
-        contactTableViewController.tableView.reloadRows(at: rows, with: .none)
-        contactTableViewController.tableView.endUpdates()
+        contactTableViewController?.tableView.beginUpdates()
+        contactTableViewController?.tableView.reloadRows(at: rows, with: .none)
+        contactTableViewController?.tableView.endUpdates()
     }
     
 }
