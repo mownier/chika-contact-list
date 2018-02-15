@@ -1,0 +1,133 @@
+PODS:
+  - ChikaAssets (0.0.1)
+  - ChikaCore/Error (0.15)
+  - ChikaCore/Model:Auth (0.15):
+    - ChikaCore/Model:Unique
+  - ChikaCore/Model:Store (0.15):
+    - ChikaCore/Model:Unique
+  - ChikaCore/Model:Unique (0.15)
+  - ChikaCore/Result (0.15)
+  - ChikaCore/Service:Auth (0.15):
+    - ChikaCore/Model:Auth
+    - ChikaCore/Result
+  - ChikaCore/Service:Listener (0.15):
+    - ChikaCore/Result
+    - ChikaCore/Service:Listener:Object
+  - ChikaCore/Service:Listener:Object (0.15):
+    - ChikaCore/Model:Store
+  - ChikaCore/Service:Query (0.15):
+    - ChikaCore/Model:Store
+    - ChikaCore/Result
+  - ChikaCore/Service:Writer (0.15):
+    - ChikaCore/Model:Store
+    - ChikaCore/Result
+  - ChikaFirebase/Auth:SignIn (0.4.2):
+    - ChikaCore/Error
+    - ChikaCore/Service:Auth
+    - ChikaFirebase/Validator:Auth
+    - FirebaseCommunity/Auth
+  - ChikaFirebase/Auth:SignOut (0.4.2):
+    - ChikaCore/Error
+    - ChikaCore/Service:Auth
+    - FirebaseCommunity/Auth
+  - ChikaFirebase/Listener:Presence (0.4.2):
+    - ChikaCore/Error
+    - ChikaCore/Service:Listener
+    - FirebaseCommunity/Auth
+    - FirebaseCommunity/Database
+  - ChikaFirebase/Query:Chat (0.4.2):
+    - ChikaCore/Error
+    - ChikaCore/Service:Query
+    - ChikaFirebase/Query:RecentChatMessage
+    - FirebaseCommunity/Auth
+    - FirebaseCommunity/Database
+  - ChikaFirebase/Query:Contact (0.4.2):
+    - ChikaCore/Service:Query
+    - ChikaFirebase/Query:Chat
+    - ChikaFirebase/Query:Person
+    - FirebaseCommunity/Auth
+    - FirebaseCommunity/Database
+  - ChikaFirebase/Query:Message (0.4.2):
+    - ChikaCore/Service:Query
+    - ChikaFirebase/Query:Person
+    - FirebaseCommunity/Database
+  - ChikaFirebase/Query:Person (0.4.2):
+    - ChikaCore/Error
+    - ChikaCore/Service:Query
+    - FirebaseCommunity/Database
+  - ChikaFirebase/Query:RecentChatMessage (0.4.2):
+    - ChikaCore/Error
+    - ChikaCore/Service:Query
+    - ChikaFirebase/Query:Message
+    - FirebaseCommunity/Auth
+    - FirebaseCommunity/Database
+  - ChikaFirebase/Validator:Auth (0.4.2)
+  - ChikaFirebase/Writer:OfflinePresenceSwitcher (0.4.2):
+    - ChikaCore/Service:Writer
+    - FirebaseCommunity/Auth
+    - FirebaseCommunity/Database
+  - ChikaFirebase/Writer:OnlinePresenceSwitcher (0.4.2):
+    - ChikaCore/Error
+    - ChikaCore/Service:Writer
+    - FirebaseCommunity/Auth
+    - FirebaseCommunity/Database
+  - ChikaUI (0.0.1):
+    - ChikaAssets
+    - SDWebImage
+  - FirebaseCommunity/Auth (0.1.6):
+    - FirebaseCommunity/Core
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseCommunity/Core (0.1.6):
+    - FirebaseCommunity/Root
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseCommunity/Database (0.1.6):
+    - FirebaseCommunity/Core
+    - leveldb-library
+  - FirebaseCommunity/Root (0.1.6)
+  - GoogleToolboxForMac/DebugUtils (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/Defines (2.1.3)
+  - GoogleToolboxForMac/NSData+zlib (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3):
+    - GoogleToolboxForMac/DebugUtils (= 2.1.3)
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
+  - GTMSessionFetcher/Core (1.1.12)
+  - leveldb-library (1.20)
+  - SDWebImage (4.2.3):
+    - SDWebImage/Core (= 4.2.3)
+  - SDWebImage/Core (4.2.3)
+
+DEPENDENCIES:
+  - ChikaAssets (from `../ChikaAssets`)
+  - ChikaFirebase/Auth:SignIn
+  - ChikaFirebase/Auth:SignOut
+  - ChikaFirebase/Listener:Presence
+  - ChikaFirebase/Query:Contact
+  - ChikaFirebase/Writer:OfflinePresenceSwitcher
+  - ChikaFirebase/Writer:OnlinePresenceSwitcher
+  - ChikaUI (from `../ChikaUI`)
+
+EXTERNAL SOURCES:
+  ChikaAssets:
+    :path: ../ChikaAssets
+  ChikaUI:
+    :path: ../ChikaUI
+
+SPEC CHECKSUMS:
+  ChikaAssets: dd5ac3cd029e67765342eb1e8085b7cf76815344
+  ChikaCore: cc418e844027acd5321cc36ed987ee4e67c09e63
+  ChikaFirebase: 6dd6dba32e25fbcd266861bedc3e4b2d11500f74
+  ChikaUI: 9c5e64d32ae395b2f5e5c59cdce3438086995652
+  FirebaseCommunity: 1f9a0e48654316b4ffe4c830db0ce72b9e2d2c9d
+  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
+  GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
+
+PODFILE CHECKSUM: 9c7967af82e4a563ba22af532d7023e6e43eda12
+
+COCOAPODS: 1.3.1
