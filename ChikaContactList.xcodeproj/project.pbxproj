@@ -280,7 +280,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ChikaContactList/Pods-ChikaContactList-resources.sh",
-				"${PODS_ROOT}/../../ChikaAssets/ChikaAssets/Source/ChikaAssets.xcassets",
+				"${PODS_ROOT}/ChikaAssets/ChikaAssets/Source/ChikaAssets.xcassets",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -318,6 +318,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-ChikaContactList/Pods-ChikaContactList-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ChikaCore/ChikaCore.framework",
 				"${BUILT_PRODUCTS_DIR}/ChikaFirebase/ChikaFirebase.framework",
+				"${BUILT_PRODUCTS_DIR}/ChikaSignIn/ChikaSignIn.framework",
 				"${BUILT_PRODUCTS_DIR}/ChikaUI/ChikaUI.framework",
 				"${BUILT_PRODUCTS_DIR}/FirebaseCommunity/FirebaseCommunity.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
@@ -329,6 +330,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChikaCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChikaFirebase.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChikaSignIn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChikaUI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCommunity.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
