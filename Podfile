@@ -11,10 +11,12 @@ target 'ChikaContactList' do
     pod 'ChikaFirebase/Writer:OfflinePresenceSwitcher'
     pod 'ChikaFirebase/Writer:OnlinePresenceSwitcher'    
 
+    pod 'ChikaSignIn'
+
     pod 'ChikaFirebase/Query:Contact'
     pod 'ChikaFirebase/Listener:Presence'
-    pod 'ChikaUI', :path => '../ChikaUI'
-    pod 'ChikaAssets', :path => '../ChikaAssets'
+    pod 'ChikaUI'
+    pod 'ChikaAssets'
  
     target 'ChikaContactListTests' do
         inherit! :search_paths

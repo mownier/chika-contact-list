@@ -1,5 +1,5 @@
 PODS:
-  - ChikaAssets (0.0.1)
+  - ChikaAssets (0.0.2)
   - ChikaCore/Error (0.15)
   - ChikaCore/Model:Auth (0.15):
     - ChikaCore/Model:Unique
@@ -71,7 +71,10 @@ PODS:
     - ChikaCore/Service:Writer
     - FirebaseCommunity/Auth
     - FirebaseCommunity/Database
-  - ChikaUI (0.0.1):
+  - ChikaSignIn (0.0.3):
+    - ChikaFirebase/Auth:SignIn
+    - ChikaFirebase/Writer:OnlinePresenceSwitcher
+  - ChikaUI (0.0.3):
     - ChikaAssets
     - SDWebImage
   - FirebaseCommunity/Auth (0.1.6):
@@ -102,32 +105,28 @@ PODS:
   - SDWebImage/Core (4.2.3)
 
 DEPENDENCIES:
-  - ChikaAssets (from `../ChikaAssets`)
+  - ChikaAssets
   - ChikaFirebase/Auth:SignIn
   - ChikaFirebase/Auth:SignOut
   - ChikaFirebase/Listener:Presence
   - ChikaFirebase/Query:Contact
   - ChikaFirebase/Writer:OfflinePresenceSwitcher
   - ChikaFirebase/Writer:OnlinePresenceSwitcher
-  - ChikaUI (from `../ChikaUI`)
-
-EXTERNAL SOURCES:
-  ChikaAssets:
-    :path: ../ChikaAssets
-  ChikaUI:
-    :path: ../ChikaUI
+  - ChikaSignIn
+  - ChikaUI
 
 SPEC CHECKSUMS:
-  ChikaAssets: dd5ac3cd029e67765342eb1e8085b7cf76815344
+  ChikaAssets: 00d783b7b1d4a85b49e80d85bb367186471f2bf0
   ChikaCore: cc418e844027acd5321cc36ed987ee4e67c09e63
   ChikaFirebase: 6dd6dba32e25fbcd266861bedc3e4b2d11500f74
-  ChikaUI: 9c5e64d32ae395b2f5e5c59cdce3438086995652
+  ChikaSignIn: f762f2c425e6a0611f025c490412279e3e3b2d39
+  ChikaUI: 9a4ddccfc4ea6b327931bc5618824fdaecbdb32e
   FirebaseCommunity: 1f9a0e48654316b4ffe4c830db0ce72b9e2d2c9d
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
 
-PODFILE CHECKSUM: 9c7967af82e4a563ba22af532d7023e6e43eda12
+PODFILE CHECKSUM: 409f9e1520aec79a1051c0bc5d911982a954cece
 
 COCOAPODS: 1.3.1
