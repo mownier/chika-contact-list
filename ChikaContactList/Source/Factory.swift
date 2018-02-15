@@ -65,14 +65,43 @@ public final class Factory {
         scene.presenceListener = PresenceListener()
         scene.presenceListenerOperator = PresenceListenerOperation()
         
-        scene.contactTableViewControllerFactory = ContactTableViewControllerFactory()
-        
         scene.isSelectionEnabled = isSelectionEnabled
         
         scene.onSelectContact = onSelectContact
         scene.onDeselectContact = onDeselectContact
         
         scene.initialSelectedContactIDs = initialSelectedContactIDs
+        
+        let factory = ContactTableViewControllerFactory()
+        
+        scene.contactTableViewController = factory.withItemCount({
+            return scene.data.itemCount
+            
+        }).withItemAt({ index -> ContactTableViewCellItem in
+            guard let item = scene.data.itemAt(index) else {
+                return ContactTableViewCellItem()
+            }
+            
+            return item.toCellItem()
+            
+        }).onSelectItemAt({ index in
+            guard let contact = scene.data.itemAt(index)?.contact else {
+                return
+            }
+            
+            scene.onSelectContact?(contact)
+            
+        }).onDeselectItemAt({ index in
+            guard let contact = scene.data.itemAt(index)?.contact else {
+                return
+            }
+            
+            scene.onDeselectContact?(contact)
+            
+        }).withSelectedIndexes({
+            return scene.data.indexes(withContactIDs: scene.initialSelectedContactIDs)
+            
+        }).build()
         
         return scene
     }
