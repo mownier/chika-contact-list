@@ -10,5 +10,9 @@ Pod::Spec.new do |s|
   s.source_files = 'ChikaUI/Source/*.swift'
   s.requires_arc = true
   
+  s.dependency 'ChikaFirebase/Query:Contact'
+  s.dependency 'ChikaFirebase/Listener:Presence'
+
+  s.dependency 'ChikaUI'
   s.dependency 'ChikaAssets'
 end
