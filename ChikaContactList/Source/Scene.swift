@@ -60,7 +60,14 @@ public final class Scene: UIViewController {
     }
     
     public override func viewDidLayoutSubviews() {
-        contactTableViewController?.view.frame = containerView.bounds
+        var rect = containerView.bounds
+        
+        contactTableViewController?.view.frame = rect
+
+        let view = contactTableViewController?.tableView.tableHeaderView
+        rect.size.height = view?.sizeThatFits(rect.size).height ?? 0
+        view?.frame = rect
+        contactTableViewController?.tableView.tableHeaderView = view
     }
     
     public func dispose() {
@@ -116,6 +123,15 @@ public final class Scene: UIViewController {
         }
         
         return contactQueryOperator.withCompletion(completion).getContacts(using: contactQuery())
+    }
+    
+    public func setHeaderView(_ view: UIView?) {
+        contactTableViewController?.tableView.tableHeaderView = view
+        contactTableViewController?.tableView.tableHeaderView?.clipsToBounds = true
+    }
+    
+    public func reloadData() {
+        contactTableViewController?.tableView.reloadData()
     }
     
     private func completion(_ result: Result<[Contact]>) {
