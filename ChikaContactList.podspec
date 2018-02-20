@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'ChikaContactList'
-  s.version  = '0.0.1'
+  s.version  = '0.0.2'
   s.summary  = 'Contact list feature of Chika'
   s.platform = :ios, '11.0'
   s.license  = { :type => 'MIT', :file => 'LICENSE' }
